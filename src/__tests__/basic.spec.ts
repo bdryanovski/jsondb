@@ -5,8 +5,8 @@ import fs from 'fs';
 const file = './demo_database';
 
 function cleanup() {
-  if (fs.existsSync(file)) {
-    fs.unlinkSync(file);
+  if (fs.existsSync(file + '.json')) {
+    fs.unlinkSync(file + '.json');
   }
 }
 
