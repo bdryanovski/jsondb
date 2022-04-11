@@ -10,7 +10,7 @@ const DatabaseDefaults: DatabaseOptions = {
   databaseExtension: '.json',
 }
 
-export class Database {
+export class JSONDatabase{
   private _db: Record<any, any> = {};
   private _options: DatabaseOptions;
   private _name: string;

@@ -10,7 +10,7 @@ npm install jsondb
 
 
 ```ts
-import { Database } from 'jsondb';
+import { JSONDatabase as Database } from 'jsondb';
 
 const db = new Database('/path/to/db');
 
@@ -31,7 +31,6 @@ You need to call `sync` on the database to save the data to disk. This is someth
 ```ts
 db.sync();
 ```
-
 
 ### Notice
 

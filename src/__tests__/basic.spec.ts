@@ -1,12 +1,12 @@
-import { Database } from '../index';
+import { JSONDatabase as Database } from '../index';
 
 import fs from 'fs';
 
 const file = 'demo_database';
 
-function cleanup() {
-  if (fs.existsSync(file + '.json')) {
-    fs.unlinkSync(file + '.json');
+function cleanup(f: string = file + '.json') {
+  if (fs.existsSync(f)) {
+    fs.unlinkSync(f );
   }
 }
 
@@ -37,6 +37,9 @@ describe('Database', () => {
   it('should let you change the database extension', () => {
     const db = new Database('fakedb', { databaseExtension: '.db'});
     expect(db.databaseFile()).toBe('fakedb.db');
+
+    // Make sure to cleanup after ourselves
+    cleanup('fakedb.db');
   })
 
   it('should write to disk', () => {
