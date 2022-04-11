@@ -2,7 +2,7 @@ import { Database } from '../index';
 
 import fs from 'fs';
 
-const file = './demo_database';
+const file = 'demo_database';
 
 function cleanup() {
   if (fs.existsSync(file + '.json')) {
@@ -28,6 +28,16 @@ describe('Database', () => {
     const db = new Database(file);
     expect(db).toBeDefined();
   });
+
+  it('should give you the path to the database', () => {
+    const db = new Database(file);
+    expect(db.databaseFile()).toBe(file + '.json');
+  });
+
+  it('should let you change the database extension', () => {
+    const db = new Database('fakedb', { databaseExtension: '.db'});
+    expect(db.databaseFile()).toBe('fakedb.db');
+  })
 
   it('should write to disk', () => {
     const db = new Database(file);

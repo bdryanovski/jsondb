@@ -2,12 +2,22 @@
 import fs from 'fs';
 import path from 'path';
 
+export type DatabaseOptions = {
+  databaseExtension?: string;
+}
+
+const DatabaseDefaults: DatabaseOptions = {
+  databaseExtension: '.json',
+}
+
 export class Database {
   private _db: Record<any, any> = {};
+  private _options: DatabaseOptions;
   private _name: string;
 
-  constructor(name: string) {
+  constructor(name: string, options: DatabaseOptions = DatabaseDefaults) {
     this._name = name;
+    this._options = options;
     this.readFromDisk();
   }
 
@@ -18,16 +28,26 @@ export class Database {
   }
 
   private _requestFile() {
-    if (!fs.existsSync(path.join(this._name + '.json'))) {
-      fs.writeFileSync(path.join(this._name + '.json'), JSON.stringify({}));
+    const filename = path.join(this._name + this._options.databaseExtension);
+
+    if (!fs.existsSync(filename)) {
+      fs.writeFileSync(filename, JSON.stringify({}));
     }
 
-    return path.join(this._name + '.json');
+    return filename;
   }
 
   private _writeToDisk() {
     fs.writeFileSync(this._requestFile(), JSON.stringify(this._db));
     this.readFromDisk();
+  }
+
+  /**
+   * Public API
+   */
+
+  public databaseFile() {
+    return this._requestFile();
   }
 
   public collection(name: string) {
