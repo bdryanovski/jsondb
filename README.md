@@ -32,6 +32,12 @@ You need to call `sync` on the database to save the data to disk. This is someth
 db.sync();
 ```
 
+To destroy the database, you can call `destroy` on the database. This will remove the database file from disk.
+
+```ts
+db.destroy();
+```
+
 ### Notice
 
 This is experimental and not fully tested.

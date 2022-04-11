@@ -58,4 +58,8 @@ export class JSONDatabase{
     this._writeToDisk();
   }
 
+  public destroy() {
+    fs.unlinkSync(this._requestFile());
+  }
+
 }

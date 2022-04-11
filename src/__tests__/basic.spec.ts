@@ -42,6 +42,13 @@ describe('Database', () => {
     cleanup('fakedb.db');
   })
 
+  it('should let you destroy the database', () => {
+    const db = new Database('destroy');
+    expect(fs.existsSync('destroy.json')).toBe(true);
+    db.destroy();
+    expect(fs.existsSync('destroy.json')).toBe(false);
+  });
+
   it('should write to disk', () => {
     const db = new Database(file);
     db.collection('fake').push({ name: 'hello' });
